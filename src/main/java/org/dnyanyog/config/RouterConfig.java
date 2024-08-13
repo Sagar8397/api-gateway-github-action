@@ -7,12 +7,27 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RouterConfig {
+  @Bean
+  public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    return builder
+        .routes()
+        // directory service
+        .route(
+            "directory_login_route",
+            r -> r.path("/api/v1/directory/validate/**").uri("http://localhost:8081"))
+        .route(
+            "directory_add_route", r -> r.path("/api/v1/directory/**").uri("http://localhost:8081"))
 
-	@Bean
-	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-		return builder.routes()
-				.route("directory_route", r -> r.path("/api/v1/user/**").uri("http://localhost:8081"))
-				.route("patient_route", r -> r.path("/api/v1/patient/**").uri("http://localhost:8082"))
-				.route("case_route", r -> r.path("/api/v1/case/**").uri("http://localhost:8083")).build();
-	}
+        // patient service
+        .route("patient_add_route", r -> r.path("/api/v1/patient/**").uri("http://localhost:8082"))
+
+        // appointment service
+        .route(
+            "appointment_add_route",
+            r -> r.path("/api/v1/appointment/**").uri("http://localhost:8085"))
+
+        // case service
+        .route("case_add_route", r -> r.path("/api/v1/case/**").uri("http://localhost:8084"))
+        .build();
+  }
 }
