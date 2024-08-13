@@ -50,5 +50,5 @@ jobs:
         password: ${{secrets.DOCKER_REGISTRY_PAT}}
 
     - name: Push docker images
-      run: docker push sagars/api-gateway:main
+      run: docker push sagar8397/api-gateway:main
  
