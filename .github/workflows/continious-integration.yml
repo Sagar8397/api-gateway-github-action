@@ -38,7 +38,6 @@ jobs:
       continue-on-error: true
 
     - name: OWASP Scan
-      if: false
       run: mvn org.owasp:dependency-check-maven:check
 
     - name: Build code and create docker images
