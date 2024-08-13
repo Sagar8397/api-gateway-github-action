@@ -1,0 +1,26 @@
+name: Learn GitHub Action
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pre-commit-scan:
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+            distribution: 'temurin'
+            java-version: '21'
+
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: perform google formatter check
+        run: mvn.spotify.fmt:fmt-maven-plugin:check
